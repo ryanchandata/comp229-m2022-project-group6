@@ -11,7 +11,7 @@ import mongoose, { mongo } from 'mongoose';
 // URI
 import * as DBConfig from './db';
 
-mongoose.connect(process.env.URI || DBConfig.LocalURI);
+mongoose.connect(process.env.URI || DBConfig.RemoteURI);
 
 const db = mongoose.connection; // alias for the mongoose connection
 db.on("error", function()
@@ -26,7 +26,7 @@ db.once("open", function()
 
 // define routers
 import index from '../Routes/index'; // top level routes
-import books from '../Routes/books'; // routes for books
+import surveys from '../Routes/surveys';
 
 // Express Web App Configuration
 const app = express();
@@ -47,7 +47,7 @@ app.use(express.static(path.join(__dirname, '../../node_modules')));
 // route redirects
 app.use('/', index);
 app.use('/books', books);
-
+app.use('/surveys', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
