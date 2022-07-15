@@ -3,29 +3,29 @@ import express from 'express';
 const router = express.Router();
 export default router;
 
-// define the survey model
-import survey from '../Models/survey';
+// define the book model
+import book from '../Models/survey';
 
-/* GET survey List page. READ */
+/* GET books List page. READ */
 router.get('/', (req, res, next) => 
 {
   // find all books in the books collection
-  survey.find( (err, survey) => {
+  book.find( (err, books) => {
     if (err) {
       return console.error(err);
     }
     else {
-      res.render('survey/index', {
-        title: 'Survey',
-        page: 'survey',
-        survey: survey
+      res.render('books/index', {
+        title: 'Books',
+        page: 'books',
+        books: books
       });
     }
   });
 
 });
 
-//  GET the Survey Details page in order to add a new Survey
+//  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
 
     /*****************
@@ -34,7 +34,7 @@ router.get('/add', (req, res, next) => {
 
 });
 
-// POST process the Survey Details page and create a new Survey - CREATE
+// POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
 
     /*****************
@@ -43,7 +43,7 @@ router.post('/add', (req, res, next) => {
 
 });
 
-// GET the Survey Details page in order to edit an existing Survey
+// GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
 
     /*****************

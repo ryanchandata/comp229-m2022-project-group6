@@ -6,17 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
-const books_1 = __importDefault(require("../Models/books"));
+const survey_1 = __importDefault(require("../Models/survey"));
 router.get('/', (req, res, next) => {
-    books_1.default.find((err, books) => {
+    survey_1.default.find((err, survey) => {
         if (err) {
             return console.error(err);
         }
         else {
-            res.render('books/index', {
-                title: 'Books',
-                page: 'books',
-                books: books
+            res.render('survey/index', {
+                title: 'Survey',
+                page: 'survey',
+                survey: survey
             });
         }
     });

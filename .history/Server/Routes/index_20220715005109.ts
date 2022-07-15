@@ -5,7 +5,7 @@ export default router;
 
 import mongoose from 'mongoose';
 
-// define the survey model
+// define the book model
 import survey from '../Models/survey';
 
 /* GET home page. wildcard */

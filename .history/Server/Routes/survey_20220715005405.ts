@@ -43,7 +43,7 @@ router.post('/add', (req, res, next) => {
 
 });
 
-// GET the Survey Details page in order to edit an existing Survey
+// GET the Survey Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
 
     /*****************

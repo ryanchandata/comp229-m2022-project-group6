@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
     res.render('content/index', {
         title: 'Home',
         page: 'home',
-        books: ''
+        survey: ''
     });
 });
 //# sourceMappingURL=index.js.map

@@ -16,4 +16,4 @@ const BookSchema = new Schema({
 });
 const Model = mongoose_1.default.model('Book', BookSchema);
 exports.default = Model;
-//# sourceMappingURL=books.js.map
+//# sourceMappingURL=survey.js.map

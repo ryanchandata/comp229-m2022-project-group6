@@ -17,15 +17,15 @@ router.get('/', (req, res, next) =>
     else {
       res.render('survey/index', {
         title: 'Survey',
-        page: 'survey',
-        survey: survey
+        page: 'books',
+        books: books
       });
     }
   });
 
 });
 
-//  GET the Survey Details page in order to add a new Survey
+//  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
 
     /*****************
@@ -34,7 +34,7 @@ router.get('/add', (req, res, next) => {
 
 });
 
-// POST process the Survey Details page and create a new Survey - CREATE
+// POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
 
     /*****************
@@ -43,7 +43,7 @@ router.post('/add', (req, res, next) => {
 
 });
 
-// GET the Survey Details page in order to edit an existing Survey
+// GET the Book Details page in order to edit an existing Book
 router.get('/:id', (req, res, next) => {
 
     /*****************
