@@ -5,8 +5,8 @@ export default router;
 
 import mongoose from 'mongoose';
 
-// define the survey model
-import survey from '../Models/survey';
+// define the book model
+import book from '../Models/survey';
 
 /* GET home page. wildcard */
 router.get('/', (req, res, next) => {

@@ -1,0 +1,137 @@
+// modules required for routing
+import express from 'express';
+import { CallbackError } from 'mongoose';
+const router = express.Router();
+export default router;
+
+// define the book model
+import survey from '../Models/survey';
+
+/* GET books List page. READ */
+router.get('/', (req, res, next) => 
+{
+  // find all books in the books collection
+  survey.find( (err, surveys) => {
+    if (err) {
+      return console.error(err);
+    }
+    else {
+      res.render('books/index', {      // **** change to surveys/index
+        title: 'Surveys',
+        page: 'surveys',
+        surveys: surveys
+      });
+    }
+  }).sort({Title: 1});
+
+});
+
+//  GET the Survey Details page in order to add a new Survey
+router.get('/add', (req, res, next) => {
+
+    /*****************
+     * ADD CODE HERE *
+     *****************/
+
+    res.render('books/details', {      // **** change to surveys/details
+      title: 'Details',
+      page: 'details',
+      surveys: ''
+    })
+
+});
+
+// POST process the Survey Details page and create a new Survey - CREATE
+router.post('/add', (req, res, next) => {
+
+    /*****************
+     * ADD CODE HERE *
+     *****************/
+
+    let newSurvey = new survey
+  ({
+      "name": req.body.name,
+      "questionsTitle": req.body.questions.title,
+      "questionsOptionType": req.body.questions.optionType,
+      "questionOptions": req.body.questions.options
+  })
+
+  survey.create(newSurvey, function(err: CallbackError)
+  {
+    if (err)
+    {
+      console.error(err);
+      res.end(err);
+    }
+    res.redirect('/books');      // **** change to /surveys
+  })
+});
+
+// GET the Survey Details page in order to edit an existing Survey
+router.get('/edit/:id', (req, res, next) => {
+
+    /*****************
+     * ADD CODE HERE *
+     *****************/
+
+    let id = req.params.id;
+    survey.findById(id, {}, {}, function(err,surveysToEdit)
+    {
+      if (err)
+      {
+        console.error(err);
+        res.end(err);
+      }
+      res.render('books/details', {title: 'Edit', page: 'edit', surveys: surveysToEdit})      // **** change to surveys/details
+    });
+});
+
+// POST - process the information passed from the details form and update the document
+router.post('/edit/:id', (req, res, next) => {
+
+    /*****************
+     * ADD CODE HERE *
+     *****************/
+
+    let id = req.params.id;
+    let updateSurveys = new survey
+    ({
+      "_id": id,
+      "name": req.body.name,
+      "questionsTitle": req.body.questions.title,
+      "questionsOptionType": req.body.questions.optionType,
+      "questionOptions": req.body.questions.options
+    });
+
+    survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
+    {
+      if (err)
+      {
+        console.error(err);
+        res.end(err);
+      }
+      res.redirect('/books');      // **** change to /surveys
+    });
+});
+
+// GET - process the delete by user id
+router.get('/delete/:id', (req, res, next) => {
+
+    /*****************
+     * ADD CODE HERE *
+     *****************/
+
+    let id = req.params.id;
+    survey.remove({_id: id}, function(err: CallbackError)
+    {
+      if(err)
+      {
+        console.error(err);
+        res.end(err);
+      }
+      res.redirect('/books');      // **** change to /surveys
+    })
+});
+
+
+//module.exports = router;

@@ -13,10 +13,6 @@ To get a local copy up and running follow these simple steps.
 ```sh
 git clone https://github.com/ryanchandata/comp229-m2022-project-group6.git
 ```
-2. Install NPM packages
-```sh
-npm install
-```
 
 ## Before you start a task
 
