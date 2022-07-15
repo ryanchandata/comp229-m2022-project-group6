@@ -30,6 +30,6 @@ const surveySchema = new Schema({
 }, {
     collection: "surveys"
 });
-const Model = mongoose_1.default.model("Survey", surveysSchema);
+const Model = mongoose_1.default.model("Survey", surveySchema);
 exports.default = Model;
 //# sourceMappingURL=survey.js.map
