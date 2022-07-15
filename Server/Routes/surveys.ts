@@ -4,21 +4,21 @@ const router = express.Router();
 export default router;
 
 // define the survey model
-import survey from '../Models/survey';
+import survey from '../Models/surveys';
 
-/* GET survey List page. READ */
+/* GET surveys List page. READ */
 router.get('/', (req, res, next) => 
 {
-  // find all books in the books collection
-  survey.find( (err, survey) => {
+  // find all surveys in the surveys collection
+  survey.find( (err, surveys) => {
     if (err) {
       return console.error(err);
     }
     else {
-      res.render('survey/index', {
-        title: 'Survey',
-        page: 'survey',
-        survey: survey
+      res.render('surveys/index', {
+        title: 'Surveys',
+        page: 'surveys',
+        surveys: surveys
       });
     }
   });

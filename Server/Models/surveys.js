@@ -12,8 +12,8 @@ const BookSchema = new Schema({
     Author: String,
     Genre: String
 }, {
-    collection: "books"
+    collection: "surveys"
 });
-const Model = mongoose_1.default.model('Book', BookSchema);
+const Model = mongoose_1.default.model('Survey', BookSchema);
 exports.default = Model;
-//# sourceMappingURL=survey.js.map
+//# sourceMappingURL=surveys.js.map

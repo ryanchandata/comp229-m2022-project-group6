@@ -6,17 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
-const survey_1 = __importDefault(require("../Models/survey"));
+const surveys_1 = __importDefault(require("../Models/surveys"));
 router.get('/', (req, res, next) => {
-    survey_1.default.find((err, survey) => {
+    surveys_1.default.find((err, surveys) => {
         if (err) {
             return console.error(err);
         }
         else {
-            res.render('survey/index', {
-                title: 'Survey',
-                page: 'survey',
-                survey: survey
+            res.render('surveys/index', {
+                title: 'Surveys',
+                page: 'surveys',
+                surveys: surveys
             });
         }
     });
@@ -31,4 +31,4 @@ router.post('/:id', (req, res, next) => {
 });
 router.get('/delete/:id', (req, res, next) => {
 });
-//# sourceMappingURL=survey.js.map
+//# sourceMappingURL=surveys.js.map
