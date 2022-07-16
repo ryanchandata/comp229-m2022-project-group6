@@ -98,9 +98,9 @@ router.post('/edit/:id', (req, res, next) => {
     ({
       "_id": id,
       "name": req.body.name,
-      "questionsTitle": req.body.questionsTitle,
-      "questionsOptionType": req.body.questionsOptionType,
-      "questionOptions": req.body.questionsOption
+      "questionsTitle": req.body.questions.title,
+      "questionsOptionType": req.body.questions.optionType,
+      "questionOptions": req.body.questions.options
     });
 
     survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)

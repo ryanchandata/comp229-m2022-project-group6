@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.default = router;
 const survey_1 = __importDefault(require("../Models/survey"));
-router.get('/', (req, res, next) => {
+router.get('/surveys', (req, res, next) => {
     survey_1.default.find((err, surveys) => {
         if (err) {
             return console.error(err);
@@ -19,11 +19,11 @@ router.get('/', (req, res, next) => {
                 surveys: surveys
             });
         }
-    }).sort({ Title: 1 });
+    }).sort({ name: 1 });
 });
 router.get('/add', (req, res, next) => {
     res.render('surveys/details', {
-        title: 'Details',
+        title: 'Creating Survey',
         page: 'details',
         surveys: ''
     });
@@ -31,9 +31,9 @@ router.get('/add', (req, res, next) => {
 router.post('/add', (req, res, next) => {
     let newSurvey = new survey_1.default({
         "name": req.body.name,
-        "questionsTitle": req.body.questions.title,
-        "questionsOptionType": req.body.questions.optionType,
-        "questionOptions": req.body.questions.options
+        "questionsTitle": req.body.questionsTitle,
+        "questionsOptionType": req.body.questionsOptionType,
+        "questionOptions": req.body.questionsOption
     });
     survey_1.default.create(newSurvey, function (err) {
         if (err) {
@@ -50,7 +50,7 @@ router.get('/edit/:id', (req, res, next) => {
             console.error(err);
             res.end(err);
         }
-        res.render('surveys/details', { title: 'Edit', page: 'edit', surveys: surveysToEdit });
+        res.render('surveys/details', { title: 'Edit Survey', page: 'edit', surveys: surveysToEdit });
     });
 });
 router.post('/edit/:id', (req, res, next) => {
@@ -58,9 +58,9 @@ router.post('/edit/:id', (req, res, next) => {
     let updateSurveys = new survey_1.default({
         "_id": id,
         "name": req.body.name,
-        "questionsTitle": req.body.questions.title,
-        "questionsOptionType": req.body.questions.optionType,
-        "questionOptions": req.body.questions.options
+        "questionsTitle": req.body.questionsTitle,
+        "questionsOptionType": req.body.questionsOptionType,
+        "questionOptions": req.body.questionsOption
     });
     survey_1.default.updateOne({ _id: id }, updateSurveys, function (err) {
         if (err) {
