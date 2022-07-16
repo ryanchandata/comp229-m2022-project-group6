@@ -22,7 +22,7 @@ router.get('/surveys', (req, res, next) =>
         surveys: surveys
       });
     }
-  }).sort({name: 1});
+  }).sort({Title: 1});
 
 });
 
@@ -34,7 +34,7 @@ router.get('/add', (req, res, next) => {
      *****************/
 
     res.render('surveys/details', {
-      title: 'Creating Survey',
+      title: 'Details',
       page: 'details',
       surveys: ''
     })
@@ -51,9 +51,9 @@ router.post('/add', (req, res, next) => {
     let newSurvey = new survey
   ({
       "name": req.body.name,
-      "questionsTitle": req.body.questionsTitle,
-      "questionsOptionType": req.body.questionsOptionType,
-      "questionOptions": req.body.questionsOption
+      "questionsTitle": req.body.questions.title,
+      "questionsOptionType": req.body.questions.optionType,
+      "questionOptions": req.body.questions.options
   })
 
   survey.create(newSurvey, function(err: CallbackError)
@@ -98,9 +98,9 @@ router.post('/edit/:id', (req, res, next) => {
     ({
       "_id": id,
       "name": req.body.name,
-      "questionsTitle": req.body.questionsTitle,
-      "questionsOptionType": req.body.questionsOptionType,
-      "questionOptions": req.body.questionsOption
+      "questionsTitle": req.body.questions.title,
+      "questionsOptionType": req.body.questions.optionType,
+      "questionOptions": req.body.questions.options
     });
 
     survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)

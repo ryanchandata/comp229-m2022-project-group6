@@ -1,0 +1,49 @@
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+          <h1><%= title %></h1>
+            <form class="form" method="post">
+              <div class="form-group">
+                <label for="NameTextField">Survey Name</label>
+                <input type="text" class="form-control" id="name"
+                placeholder="Survey's Name" name="number" value="<%= surveys.name %>" required>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="QuestionTextField">Question 1</label>
+                <input type="text" class="form-control" id="QuestionTextField"
+                placeholder="What is the first question you want to ask?" name="questionsTitle" value="<%= surveys.questionsTitle %>"  required>
+                <br>
+                <label for="QuestionOptionType">Selection Type:</label>
+                <label for="QuestionOptionType">Radio</label>
+                <input type="radio" id="QuestionOptionType" name="questionsOptionType" value="<%= surveys.questionsOptionType %>" required>
+                <label for="QuestionOptionType">Checkbox</label>
+                <input type="radio" id="QuestionOptionType" name="questionsOptionType" value="<%= surveys.questionsOptionType %>" required>
+                <br><br>
+                <label for="QuestionOptionField1">Option 1: </label>
+                <input type="text" id="QuestionOptionField1"
+                placeholder="Option 1" name="questionOptions1" value="<%= surveys.questionOptions %>">
+                <label for="QuestionOptionField2">Option 2: </label>
+                <input type="text" id="QuestionOptionField2"
+                placeholder="Option 2" name="questionOptions2" value="<%= surveys.questionOptions %>">
+                <label for="QuestionOptionField3">Option 3: </label>
+                <input type="text" id="QuestionOptionField3"
+                placeholder="Option 3" name="questionOptions3" value="<%= surveys.questionOptions %>">
+                <label for="QuestionOptionField4">Option 4: </label>
+                <input type="text" id="QuestionOptionField4"
+                placeholder="Option 4" name="questionOptions4" value="<%= surveys.questionOptions %>">
+              </div>
+              
+
+              <br><br>
+              <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
+              <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
+            </form>
+        </div>
+      </div>
+    </div>
+
+<%- include('../partials/footer.ejs'); %>
