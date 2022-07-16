@@ -7,20 +7,20 @@
           <h1><%= title %></h1>
             <form class="form" method="post">
               <div class="form-group">
-                <label for="name">Survey Title</label>
+                <label for="NameTextField">Survey Title</label>
                 <input type="text" class="form-control" id="name"
                 placeholder="Title" name="name" value="<%= surveys.name %>" required>
               </div>
               <br>
               <div class="form-group">
-                <label for="title">Question 1</label>
-                <input type="text" class="form-control" id="title"
-                placeholder="What is your survey question?" name="title" value="<%= surveys.title %>"  required>
+                <label for="questions_title">Question 1</label>
+                <input type="text" class="form-control" id="questions_title"
+                placeholder="What is your survey question?" name="questions_title" value="<%= surveys.questions_title %>"  required>
                 <br>
                 <label for="optionType">Selection Type:</label>
                 <label for="optionType">Radio</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
-                <label for="optionType">Checkbox</label>
+                <label for="QuestionOptionType">Checkbox</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
                 <br><br>
                 <label for="options1">Option 1: </label>
@@ -45,7 +45,7 @@
                 <label for="optionType">Selection Type:</label>
                 <label for="optionType">Radio</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
-                <label for="optionType">Checkbox</label>
+                <label for="QuestionOptionType">Checkbox</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
                 <br><br>
                 <label for="options1">Option 1: </label>
@@ -70,7 +70,7 @@
                 <label for="optionType">Selection Type:</label>
                 <label for="optionType">Radio</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
-                <label for="optionType">Checkbox</label>
+                <label for="QuestionOptionType">Checkbox</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
                 <br><br>
                 <label for="options1">Option 1: </label>
@@ -120,7 +120,7 @@
                 <label for="optionType">Selection Type:</label>
                 <label for="optionType">Radio</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
-                <label for="optionType">Checkbox</label>
+                <label for="QuestionOptionType">Checkbox</label>
                 <input type="radio" class="form-check-input" id="optionType" name="optionType" value="<%= surveys.optionType %>" required>
                 <br><br>
                 <label for="options1">Option 1: </label>

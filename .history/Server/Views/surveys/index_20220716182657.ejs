@@ -1,0 +1,58 @@
+<%- include('../partials/header.ejs'); %>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <h3>Survey Management </h3>
+          <!-- ------------------------ -->
+          <!-- FIX THE ADD BUTTON BELOW -->
+          <!-- ------------------------ -->
+          <a href="/add" class="btn btn-primary"><i class="fa fa-plus"></i> Create Survey</a>
+          <br><br>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Survey Name</th>
+                  <th class="text-center">No. of Response</th>
+                  <th class="text-center">Edit</th>
+                  <th class="text-center">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Template Row -->
+                <% for (let count = 0; count < surveys.length; count++) { %>
+                <tr>
+                  <td><%= surveys[count].name %></td>
+                  <td class="text-center"><%= surveys[count].responses %></td>
+
+                  <td class="text-center">
+                    <!-- ------------------------ -->
+                    <!-- ADD the EDIT BUTTON HERE -->
+                    <!-- ------------------------ -->
+
+                    <a href="/edit/<%= surveys[count]._id %>" id="edit" type="button"><i class="fa-solid fa-pen-to-square fa-lg"></i></a>
+
+                  </td>
+
+                  <td class="text-center">
+                    <!-- ------------------------ -->
+                    <!-- ADD the DELETE BUTTON HERE -->
+                    <!-- ------------------------ -->
+
+                    <a href="/delete/<%= surveys[count]._id %>"><i class="fa-solid fa-circle-minus fa-lg"></i></a>
+
+                  </td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<%- include('../partials/footer.ejs'); %>
+
+
