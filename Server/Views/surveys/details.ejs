@@ -62,7 +62,19 @@
                 placeholder="Add option, if any" name="options8" value="<%= surveys.options4 %>">
               </div>
               <br><br>
-               <br><br>
+              <% for(let count = 0; count < surveys.questions.length; count++) { %>
+
+                <div class="form-group">
+                    <label> Question <%= count + 1%> </label>
+                    <input type="text" class="form-control" placeholder= "Question <%= count + 1%>" name="questionsTitles" value="<%= surveys.questions[count].title %>"
+                    required>
+                </div>
+                <br>
+                <label for="optionType">Selection Type:</label>
+                <input type="text" class="form-control" placeholder= "" name="questionsTitles" value="<%= surveys.questions[count].optionType %>" required>
+             <% } %>
+              
+              <br><br>
               <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Submit</button>
               <a href="/surveys" class="btn btn-warning"><i class="fa fa-undo"></i> Cancel</a>
             </form>
