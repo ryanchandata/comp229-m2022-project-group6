@@ -33,9 +33,9 @@ router.get('/add', (req, res, next) => {
      * ADD CODE HERE *
      *****************/
 
-    res.render('surveys/add', {
+    res.render('surveys/details', {
       title: 'Creating Survey',
-      page: 'add',
+      page: 'details',
       surveys: ''
     })
 

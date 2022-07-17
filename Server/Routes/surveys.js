@@ -22,9 +22,9 @@ router.get('/surveys', (req, res, next) => {
     }).sort({ name: 1 });
 });
 router.get('/add', (req, res, next) => {
-    res.render('surveys/details', {
+    res.render('surveys/add', {
         title: 'Creating Survey',
-        page: 'details',
+        page: 'add',
         surveys: ''
     });
 });
@@ -55,9 +55,8 @@ router.post('/add', (req, res, next) => {
     }
     let newSurvey = new survey_1.default({
         "name": req.body.name,
-        "title": req.body.title,
-        "questions": questionsArray,
-        "options_id": req.body.options_id
+        "title": req.body.questionsArray.title,
+        "optionType": req.body.questionsArray.optionType,
     });
     survey_1.default.create(newSurvey, function (err) {
         if (err) {
@@ -82,9 +81,8 @@ router.post('/edit/:id', (req, res, next) => {
     let updateSurveys = new survey_1.default({
         "_id": id,
         "name": req.body.name,
-        "title": req.body.title,
-        "optionType": req.body.optionType,
-        "options_id": req.body.options_id
+        "title": req.body.questionsArray.title,
+        "optionType": req.body.questionsArray.optionType,
     });
     survey_1.default.updateOne({ _id: id }, updateSurveys, function (err) {
         if (err) {
