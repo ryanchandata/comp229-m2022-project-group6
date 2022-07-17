@@ -25,6 +25,18 @@
                 <label for="optionType">Checkbox</label>
                 <input type="radio" class="form-check-input" placeholder= "" name="optionType" value="<%= surveys.questions[count].optionType %>" required>
                 <br><br>
+                <label for="optionType">Options 1</label>
+                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[0].details %>" required>
+                <br>
+                <label for="optionType">Options 2</label>
+                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[1].details %>" required>
+                <br>
+                <label for="optionType">Options 3</label>
+                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[2].details %>" required>
+                <br>
+                <label for="optionType">Options 4</label>
+                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[3].details %>" required>
+                <br>
               </div>
               <% } %>
               
