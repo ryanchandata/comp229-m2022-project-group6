@@ -33,17 +33,30 @@ router.post('/add', (req, res, next) => {
         req.body.questionOne,
         req.body.questionTwo
     ];
-    let questions = [];
+    let optionDetails = [
+        req.body.options1,
+        req.body.options2,
+        req.body.options3,
+        req.body.options4
+    ];
+    let optionsArray = [];
+    let questionsArray = [];
+    for (let i = 0; i < optionDetails.length; i++) {
+        optionsArray.push({
+            "details": optionDetails[i]
+        });
+    }
     for (let i = 0; i < questionsTitles.length; i++) {
-        questions.push({
+        questionsArray.push({
             "title": questionsTitles[i],
-            "options": req.body.questionOneoptionType
+            "optionType": req.body.optionType1,
+            "options": optionsArray
         });
     }
     let newSurvey = new survey_1.default({
         "name": req.body.name,
         "title": req.body.title,
-        "questions": questions,
+        "questions": questionsArray,
         "options_id": req.body.options_id
     });
     survey_1.default.create(newSurvey, function (err) {
