@@ -16,26 +16,26 @@
               <% for(let count = 0; count < surveys.questions.length; count++) { %>
                 <div class="form-group">
                     <label> Question <%= count + 1%> </label>
-                    <input type="text" class="form-control" placeholder= "Question <%= count + 1%>" name="questionsTitles" value="<%= surveys.questions[count].title %>"
+                    <input type="text" class="form-control" placeholder= "Question <%= count + 1%>" id ="question<%= count + 1%>" name="question<%= count + 1%>" value="<%= surveys.questions[count].title %>"
                     required>
                 <br>
                 <label for="optionType">Selection Type:</label>
                 <label for="optionType">Radio</label>
-                <input type="radio" class="form-check-input" placeholder= "" name="optionType" value="<%= surveys.questions[count].optionType %>" required>
+                <input type="radio" class="form-check-input" placeholder= "" id ="optionType<%= count + 1%>" name="optionType<%= count + 1%>" value="<%= surveys.questions[count].optionType %>" required>
                 <label for="optionType">Checkbox</label>
-                <input type="radio" class="form-check-input" placeholder= "" name="optionType" value="<%= surveys.questions[count].optionType %>" required>
+                <input type="radio" class="form-check-input" placeholder= "" id ="optionType<%= count + 1%>" name="optionType<%= count + 1%>" value="<%= surveys.questions[count].optionType %>" required>
                 <br><br>
                 <label for="optionType">Options 1</label>
-                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[0].details %>" required>
+                <input type="text" class="form-control" placeholder= "" id ="options<%= count*4 +1%>" name="options<%= count*4 +1%>" value="<%= surveys.questions[count].options[0].details %>" required>
                 <br>
                 <label for="optionType">Options 2</label>
-                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[1].details %>" required>
+                <input type="text" class="form-control" placeholder= "" id ="options<%= count*4 +2%>" name="options<%= count*4 +2%>" value="<%= surveys.questions[count].options[1].details %>" required>
                 <br>
                 <label for="optionType">Options 3</label>
-                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[2].details %>" required>
+                <input type="text" class="form-control" placeholder= "" id ="options<%= count*4 +3%>" name="options<%= count*4 +3%>" value="<%= surveys.questions[count].options[2].details %>" required>
                 <br>
                 <label for="optionType">Options 4</label>
-                <input type="text" class="form-control" placeholder= "" id ="optionType<%= count + 1%>" name="optionType" value="<%= surveys.questions[count].options[3].details %>" required>
+                <input type="text" class="form-control" placeholder= "" id ="options<%= count*4 +4%>" name="options<%= count*4 +4%>" value="<%= surveys.questions[count].options[3].details %>" required>
                 <br>
               </div>
               <% } %>

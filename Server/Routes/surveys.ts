@@ -129,12 +129,49 @@ router.post('/edit/:id', (req, res, next) => {
      *****************/
 
     let id = req.params.id;
+
+    let questionsTitles = [
+      req.body.question1,
+      req.body.question2
+  ]
+  
+  let optionDetails = [
+    req.body.options1,
+    req.body.options2,
+    req.body.options3,
+    req.body.options4,
+    req.body.options5,
+    req.body.options6,
+    req.body.options7,
+    req.body.options8
+]
+  let optionType = [  
+    req.body.optionType1,
+    req.body.optionType2
+]
+
+  let optionsArray = []
+  let questionsArray = []
+  
+  for (let i = 0; i < optionDetails.length; i++) {
+    optionsArray.push({
+        "details" : optionDetails[i]
+    })
+}
+
+  for (let i = 0; i < questionsTitles.length; i++) {
+    questionsArray.push({
+        "title" : questionsTitles[i],
+        "optionType" : optionType[i],
+        "options" : optionsArray
+    })
+}
+
     let updateSurveys = new survey
     ({
       "_id": id,
       "name": req.body.name,
-      "title": req.body.questionsArray.title,
-      "optionType": req.body.questionsArray.optionType,
+      "questions": questionsArray
     });
 
     survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
