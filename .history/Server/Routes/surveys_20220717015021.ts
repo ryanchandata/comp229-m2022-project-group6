@@ -33,9 +33,9 @@ router.get('/add', (req, res, next) => {
      * ADD CODE HERE *
      *****************/
 
-    res.render('surveys/add', {
+    res.render('surveys/details', {
       title: 'Creating Survey',
-      page: 'add',
+      page: 'details',
       surveys: ''
     })
 
@@ -126,8 +126,9 @@ router.post('/edit/:id', (req, res, next) => {
     ({
       "_id": id,
       "name": req.body.name,
-      "title": req.body.questionsArray.title,
-      "optionType": req.body.questionsArray.optionType,
+      "title": req.body.title,
+      "optionType": req.body.optionType,
+      "options_id": req.body.options_id
     });
 
     survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
