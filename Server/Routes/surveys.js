@@ -31,9 +31,9 @@ router.get('/add', (req, res, next) => {
 router.post('/add', (req, res, next) => {
     let newSurvey = new survey_1.default({
         "name": req.body.name,
-        "questionsTitle": req.body.questionsTitle,
-        "questionsOptionType": req.body.questionsOptionType,
-        "questionOptions": req.body.questionsOption
+        "questions": req.body.title,
+        "optionType": req.body.optionType,
+        "options": req.body.options.count
     });
     survey_1.default.create(newSurvey, function (err) {
         if (err) {
@@ -58,9 +58,9 @@ router.post('/edit/:id', (req, res, next) => {
     let updateSurveys = new survey_1.default({
         "_id": id,
         "name": req.body.name,
-        "questionsTitle": req.body.questionsTitle,
-        "questionsOptionType": req.body.questionsOptionType,
-        "questionOptions": req.body.questionsOption
+        "questions": req.body.title,
+        "optionType": req.body.optionType,
+        "options": req.body.options.count
     });
     survey_1.default.updateOne({ _id: id }, updateSurveys, function (err) {
         if (err) {
