@@ -52,8 +52,6 @@ router.post('/add', (req, res, next) => {
   ({
       "name": req.body.name,
       "title": req.body.title,
-      "optionType": req.body.optionType,
-      "options_id": req.body.options_id
   })
 
   survey.create(newSurvey, function(err: CallbackError)

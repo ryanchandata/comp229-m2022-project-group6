@@ -52,8 +52,6 @@ router.post('/add', (req, res, next) => {
   ({
       "name": req.body.name,
       "title": req.body.title,
-      "optionType": req.body.optionType,
-      "options_id": req.body.options_id
   })
 
   survey.create(newSurvey, function(err: CallbackError)
@@ -99,8 +97,6 @@ router.post('/edit/:id', (req, res, next) => {
       "_id": id,
       "name": req.body.name,
       "title": req.body.title,
-      "optionType": req.body.optionType,
-      "options_id": req.body.options_id
     });
 
     survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
