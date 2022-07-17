@@ -29,10 +29,34 @@ router.get('/add', (req, res, next) => {
     });
 });
 router.post('/add', (req, res, next) => {
+    let questionsTitles = [
+        req.body.questionOne,
+        req.body.questionTwo
+    ];
+    let optionDetails = [
+        req.body.options1,
+        req.body.options2,
+        req.body.options3,
+        req.body.options4
+    ];
+    let optionsArray = [];
+    let questionsArray = [];
+    for (let i = 0; i < optionDetails.length; i++) {
+        optionsArray.push({
+            "details": optionDetails[i]
+        });
+    }
+    for (let i = 0; i < questionsTitles.length; i++) {
+        questionsArray.push({
+            "title": questionsTitles[i],
+            "optionType": req.body.optionType1,
+            "options": optionsArray
+        });
+    }
     let newSurvey = new survey_1.default({
         "name": req.body.name,
         "title": req.body.title,
-        "optionType": req.body.optionType,
+        "questions": questionsArray,
         "options_id": req.body.options_id
     });
     survey_1.default.create(newSurvey, function (err) {
