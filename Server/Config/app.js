@@ -32,17 +32,27 @@ const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const express_session_1 = __importDefault(require("express-session"));
+const passport_1 = __importDefault(require("passport"));
+const passport_local_1 = __importDefault(require("passport-local"));
+const connect_flash_1 = __importDefault(require("connect-flash"));
+const cors_1 = __importDefault(require("cors"));
+const passport_jwt_1 = __importDefault(require("passport-jwt"));
+let JWTStrategy = passport_jwt_1.default.Strategy;
+let ExtractJWT = passport_jwt_1.default.ExtractJwt;
+let localStrategy = passport_local_1.default.Strategy;
+const user_1 = __importDefault(require("../Models/user"));
+const surveys_1 = __importDefault(require("../Routes/surveys"));
+const auth_1 = __importDefault(require("../Routes/auth"));
 const DBConfig = __importStar(require("./db"));
-mongoose_1.default.connect(process.env.URI || DBConfig.RemoteURI);
+mongoose_1.default.connect((DBConfig.RemoteURI) ? DBConfig.RemoteURI : DBConfig.LocalURI);
 const db = mongoose_1.default.connection;
 db.on("error", function () {
-    console.error("connection error");
+    console.error("Connection Error");
 });
-db.once("open", function () {
-    console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
+db.on("open", function () {
+    console.log(`Connected to MongoDB at: ${(DBConfig.RemoteURI) ? DBConfig.HostName : "localhost"}`);
 });
-const index_1 = __importDefault(require("../Routes/index"));
-const surveys_1 = __importDefault(require("../Routes/surveys"));
 const app = (0, express_1.default)();
 exports.default = app;
 app.set('views', path_1.default.join(__dirname, '../Views'));
@@ -53,8 +63,34 @@ app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, '../../Client')));
 app.use(express_1.default.static(path_1.default.join(__dirname, '../../node_modules')));
-app.use('/', index_1.default);
-app.use('/', surveys_1.default);
+app.use((0, cors_1.default)());
+app.use((0, express_session_1.default)({
+    secret: DBConfig.Secret,
+    saveUninitialized: false,
+    resave: false
+}));
+app.use((0, connect_flash_1.default)());
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
+passport_1.default.use(user_1.default.createStrategy());
+passport_1.default.serializeUser(user_1.default.serializeUser());
+passport_1.default.deserializeUser(user_1.default.deserializeUser());
+let jwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: DBConfig.Secret
+};
+let strategy = new JWTStrategy(jwtOptions, function (jwt_payload, done) {
+    user_1.default.findById(jwt_payload.id)
+        .then(user => {
+        return done(null, user);
+    })
+        .catch(err => {
+        return done(err, false);
+    });
+});
+passport_1.default.use(strategy);
+app.use('/api', auth_1.default);
+app.use('/api', passport_1.default.authenticate('jwt', { session: false }), surveys_1.default);
 app.use(function (req, res, next) {
     next((0, http_errors_1.default)(404));
 });
@@ -64,4 +100,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+exports.default = app;
 //# sourceMappingURL=app.js.map

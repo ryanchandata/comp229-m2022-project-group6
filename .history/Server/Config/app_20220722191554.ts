@@ -32,6 +32,9 @@ import User from '../Models/user';
 import surveysRouter from '../Routes/surveys'; //Surveys routes
 import authRouter from '../Routes/auth'; //authentication routes
 
+//create the application object - which is of type express
+const app = express();
+
 // URI
 import * as DBConfig from './db';
 
@@ -70,54 +73,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Client')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
-app.use(cors()); //add CORS (cross-origin resource sharing) to the config
-
-//Step 4 - for auth - setup express session 
-app.use(session({
-  secret: DBConfig.Secret,
-  saveUninitialized:false,
-  resave: false
-}))
-
-//Step 5 -setup Flash
-
-app.use(flash());
-
-//Step 6 - initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Step 7 - implement the Auth Strategy
-passport.use(User.createStrategy());
-
-//Step 8 - setup User serialization and deserialization (encoding and decoding)
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-//setup JWT options
-let jwtOptions = 
-{
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey : DBConfig.Secret
-}
-
-//setup JWT Strategy
-let strategy = new JWTStrategy(jwtOptions, function(jwt_payload, done)
-{
-  User.findById(jwt_payload.id)
-  .then(user => {
-    return done(null, user);
-  })
-  .catch(err => {
-    return done(err, false);
-  });
-});
-
-passport.use(strategy);
-
 // route redirects
-app.use('/api', authRouter);
-app.use('/api', passport.authenticate('jwt', {session:false}), surveysRouter);
+app.use('/', index);
+app.use('/', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -136,4 +94,4 @@ app.use(function(err:createError.HttpError, req:express.Request, res:express.Res
   res.render('error');
 });
 
-export default app;
+//module.exports = app;

@@ -136,4 +136,4 @@ app.use(function(err:createError.HttpError, req:express.Request, res:express.Res
   res.render('error');
 });
 
-export default app;
+//module.exports = app;

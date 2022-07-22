@@ -102,22 +102,11 @@ let jwtOptions =
 }
 
 //setup JWT Strategy
-let strategy = new JWTStrategy(jwtOptions, function(jwt_payload, done)
-{
-  User.findById(jwt_payload.id)
-  .then(user => {
-    return done(null, user);
-  })
-  .catch(err => {
-    return done(err, false);
-  });
-});
-
-passport.use(strategy);
+let strategy = new JWTStrategy(jwtOptions, function(jwt_payload, done))
 
 // route redirects
-app.use('/api', authRouter);
-app.use('/api', passport.authenticate('jwt', {session:false}), surveysRouter);
+app.use('/', index);
+app.use('/', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -136,4 +125,4 @@ app.use(function(err:createError.HttpError, req:express.Request, res:express.Res
   res.render('error');
 });
 
-export default app;
+//module.exports = app;

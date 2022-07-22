@@ -18,36 +18,22 @@ import flash from 'connect-flash';
 import cors from 'cors';
 import passportJWT from 'passport-jwt';
 
-//define JWT Aliases
-let JWTStrategy = passportJWT.Strategy;
-let ExtractJWT = passportJWT.ExtractJwt;
-
-//Step 2 for auth - define our auth objects
-let localStrategy = passportLocal.Strategy; //alias
-
-//Step 3 for auth - import the user model
-import User from '../Models/user';
-
-//import the router data
-import surveysRouter from '../Routes/surveys'; //Surveys routes
-import authRouter from '../Routes/auth'; //authentication routes
+//define 
 
 // URI
 import * as DBConfig from './db';
 
-mongoose.connect((DBConfig.RemoteURI) ? DBConfig.RemoteURI : DBConfig.LocalURI);
+mongoose.connect(process.env.URI || DBConfig.RemoteURI);
 
 const db = mongoose.connection; // alias for the mongoose connection
-
-//Listen for Connection on Errors
 db.on("error", function()
 {
-  console.error("Connection Error");
+  console.error("connection error");
 });
 
-db.on("open", function()
+db.once("open", function()
 {
-  console.log(`Connected to MongoDB at: ${(DBConfig.RemoteURI) ? DBConfig.HostName : "localhost"}`);
+  console.log(`Connected to MongoDB at: ${DBConfig.HostName}`);
 });
 
 // define routers
@@ -70,54 +56,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../Client')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
 
-app.use(cors()); //add CORS (cross-origin resource sharing) to the config
-
-//Step 4 - for auth - setup express session 
-app.use(session({
-  secret: DBConfig.Secret,
-  saveUninitialized:false,
-  resave: false
-}))
-
-//Step 5 -setup Flash
-
-app.use(flash());
-
-//Step 6 - initialize passport and session
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Step 7 - implement the Auth Strategy
-passport.use(User.createStrategy());
-
-//Step 8 - setup User serialization and deserialization (encoding and decoding)
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-//setup JWT options
-let jwtOptions = 
-{
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey : DBConfig.Secret
-}
-
-//setup JWT Strategy
-let strategy = new JWTStrategy(jwtOptions, function(jwt_payload, done)
-{
-  User.findById(jwt_payload.id)
-  .then(user => {
-    return done(null, user);
-  })
-  .catch(err => {
-    return done(err, false);
-  });
-});
-
-passport.use(strategy);
-
 // route redirects
-app.use('/api', authRouter);
-app.use('/api', passport.authenticate('jwt', {session:false}), surveysRouter);
+app.use('/', index);
+app.use('/', surveys);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -136,4 +77,4 @@ app.use(function(err:createError.HttpError, req:express.Request, res:express.Res
   res.render('error');
 });
 
-export default app;
+//module.exports = app;
