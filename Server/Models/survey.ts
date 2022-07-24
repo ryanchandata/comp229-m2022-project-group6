@@ -5,20 +5,27 @@ const Schema = mongoose.Schema; // alias for mongoose.Schema
 // Step 2 - Create a Schema that matches the data in the collection
 const surveySchema = new Schema
 ({
+  SurveyID :: String,
   user: String, // user's id
-  
-  name: String,
+    name: String,
   dateCreated:
   {
     type: String,
     default: new Date().toISOString()
   },
+  dateActive:
+  {
+    type: String,
+    default: new Date().toISOString()
+  },
+  dateExpire: String,
   responses:
   {
     type: Number,
     default: 0
   },
   questions: [{
+    questionID : String,
     title: String,
     optionType: String,
     options: [{
