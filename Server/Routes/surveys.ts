@@ -54,15 +54,11 @@ router.post('/add', (req, res, next) => {
   ]
   
   let optionDetails = [
-    req.body.options1,
-    req.body.options2,
-    req.body.options3,
-    req.body.options4,
-    req.body.options5,
-    req.body.options6,
-    req.body.options7,
-    req.body.options8
-]
+    [req.body.options1,req.body.options2,req.body.options3,req.body.options4],
+    [req.body.options5,req.body.options6,req.body.options7,req.body.options8]
+  ]
+  
+
   let optionType = [  
     req.body.optionType1,
     req.body.optionType2
@@ -71,19 +67,19 @@ router.post('/add', (req, res, next) => {
   let optionsArray = []
   let questionsArray = []
   
-  for (let i = 0; i < optionDetails.length; i++) {
-    optionsArray.push({
-        "details" : optionDetails[i]
-    })
-}
-
   for (let i = 0; i < questionsTitles.length; i++) {
-    questionsArray.push({
+      for (let j = 0; j < 4; j++) {
+      optionsArray.push({
+        "details" : optionDetails[i][j]
+      })
+
+      }
+      questionsArray.push({
         "title" : questionsTitles[i],
         "optionType" : optionType[i],
         "options" : optionsArray
-    })
-}
+      })
+   }
 
     let newSurvey = new survey
   ({
@@ -135,16 +131,16 @@ router.post('/edit/:id', (req, res, next) => {
       req.body.question2
   ]
   
-  let optionDetails = [
+  let optionDetails = [[
     req.body.options1,
     req.body.options2,
     req.body.options3,
-    req.body.options4,
+    req.body.options4],[
     req.body.options5,
     req.body.options6,
     req.body.options7,
     req.body.options8
-]
+]]
   let optionType = [  
     req.body.optionType1,
     req.body.optionType2
@@ -153,19 +149,19 @@ router.post('/edit/:id', (req, res, next) => {
   let optionsArray = []
   let questionsArray = []
   
-  for (let i = 0; i < optionDetails.length; i++) {
-    optionsArray.push({
-        "details" : optionDetails[i]
-    })
-}
-
   for (let i = 0; i < questionsTitles.length; i++) {
-    questionsArray.push({
+      for (let j = 0; j < 4; j++) {
+      optionsArray.push({
+        "details" : optionDetails[i][j]
+      })
+      }
+      questionsArray.push({
         "title" : questionsTitles[i],
         "optionType" : optionType[i],
         "options" : optionsArray
-    })
-}
+      })
+   }
+
 
     let updateSurveys = new survey
     ({
