@@ -12,6 +12,11 @@ const surveySchema = new Schema({
         type: String,
         default: new Date().toISOString()
     },
+    dateActive: {
+        type: String,
+        default: new Date().toISOString()
+    },
+    dateExpire: String,
     responses: {
         type: Number,
         default: 0
