@@ -76,7 +76,7 @@ passport_1.default.use(user_1.default.createStrategy());
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
 let jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: DBConfig.Secret
 };
 let strategy = new JWTStrategy(jwtOptions, function (jwt_payload, done) {
@@ -100,5 +100,4 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-exports.default = app;
 //# sourceMappingURL=app.js.map
