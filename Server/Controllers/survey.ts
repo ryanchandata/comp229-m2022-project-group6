@@ -5,7 +5,7 @@ import Survey from '../Models/survey';
 
 import {UserDisplayName} from '../Util';
 
-export function DisplayMovieList(req: express.Request, res: express.Response, next: express.NextFunction)
+export function DisplaySurveyList(req: express.Request, res: express.Response, next: express.NextFunction)
 {
     Survey.find(function(err, surveysCollection)
     {
@@ -46,16 +46,52 @@ export function DisplayEditPage(req: express.Request, res: express.Response, nex
 
 export function ProcessAddPage(req: express.Request, res: express.Response, next: express.NextFunction):void
 {
-    //instantiate a new Movie to add
-    let newSurvey = new Survey({
-        "Name": req.body.movieName,
-        "Director": req.body.movieDirector,
-        "Year": req.body.movieYear,
-        "Rating": req.body.movieRating
-    });
+    //instantiate a new Survey to add
+    let questionsTitles = [
+        req.body.question1,
+        req.body.question2
+    ]
+    
+    let optionDetails = [
+      req.body.options1,
+      req.body.options2,
+      req.body.options3,
+      req.body.options4,
+      req.body.options5,
+      req.body.options6,
+      req.body.options7,
+      req.body.options8
+  ]
+    let optionType = [  
+      req.body.optionType1,
+      req.body.optionType2
+  ]
+  
+    let optionsArray = []
+    let questionsArray = []
+    
+    for (let i = 0; i < optionDetails.length; i++) {
+      optionsArray.push({
+          "details" : optionDetails[i]
+      })
+  }
+  
+    for (let i = 0; i < questionsTitles.length; i++) {
+      questionsArray.push({
+          "title" : questionsTitles[i],
+          "optionType" : optionType[i],
+          "options" : optionsArray
+      })
+  }
+  
+      let newSurvey = new Survey
+    ({
+        "name": req.body.name,
+        "questions": questionsArray
+    })
 
-    //Insert the new Movie object into the database (movie collection)
-    Movie.create(newMovie, function(err: CallbackError)
+    //Insert the new Survey object into the database (survey collection)
+    Survey.create(newSurvey, function(err: CallbackError)
     {
         if(err)
         {
@@ -64,7 +100,7 @@ export function ProcessAddPage(req: express.Request, res: express.Response, next
         }
 
         //new movie has been added -> refresh the movie-list
-        res.json({success: true, msg: 'Successfully Added Movie', movie: newMovie});
+        res.json({success: true, msg: 'Successfully Added Survey', survey: newSurvey});
     })
 }
 
@@ -72,18 +108,52 @@ export function ProcessEditPage(req: express.Request, res: express.Response, nex
 {
     let id = req.params.id;
 
-    //instantiate a new Movie to Edit
-    let updatedMovie = new Movie
+    let questionsTitles = [
+      req.body.question1,
+      req.body.question2
+  ]
+  
+  let optionDetails = [
+    req.body.options1,
+    req.body.options2,
+    req.body.options3,
+    req.body.options4,
+    req.body.options5,
+    req.body.options6,
+    req.body.options7,
+    req.body.options8
+]
+  let optionType = [  
+    req.body.optionType1,
+    req.body.optionType2
+]
+
+  let optionsArray = []
+  let questionsArray = []
+  
+  for (let i = 0; i < optionDetails.length; i++) {
+    optionsArray.push({
+        "details" : optionDetails[i]
+    })
+}
+
+  for (let i = 0; i < questionsTitles.length; i++) {
+    questionsArray.push({
+        "title" : questionsTitles[i],
+        "optionType" : optionType[i],
+        "options" : optionsArray
+    })
+}
+
+    let updateSurveys = new Survey
     ({
-        "_id": id,
-        "Name": req.body.movieName,
-        "Director": req.body.movieDirector,
-        "Year": req.body.movieYear,
-        "Rating": req.body.movieRating
+      "_id": id,
+      "name": req.body.name,
+      "questions": questionsArray
     });
 
-    //update the movie in the database
-    Movie.updateOne({_id: id}, updatedMovie, function(err: CallbackError)
+    //update the survey in the database
+    Survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
     {
         if(err)
         {
@@ -91,8 +161,8 @@ export function ProcessEditPage(req: express.Request, res: express.Response, nex
             res.end(err);
         }
 
-        //edit was successful -> go to the movie-list page
-        res.json({success: true, msg: 'Successfully Edited Movie', movie: updatedMovie});
+        //edit was successful -> go to the survey page
+        res.json({success: true, msg: 'Successfully Edited Survey', survey: updateSurveys});
     });
 }
 
@@ -101,7 +171,7 @@ export function ProcessDeletePage(req: express.Request, res: express.Response, n
     let id = req.params.id;
 
     //pass the id to the database and delete the movie
-    Movie.remove({_id: id}, function(err: CallbackError)
+    Survey.remove({_id: id}, function(err: CallbackError)
     {
         if(err)
         {
@@ -110,6 +180,6 @@ export function ProcessDeletePage(req: express.Request, res: express.Response, n
         }
 
         //delete was successful
-        res.json({success: true, msg: 'Successfully Deleted Movie'});
+        res.json({success: true, msg: 'Successfully Deleted Survey'});
     });
 }
