@@ -47,48 +47,12 @@ export function DisplayEditPage(req: express.Request, res: express.Response, nex
 export function ProcessAddPage(req: express.Request, res: express.Response, next: express.NextFunction):void
 {
     //instantiate a new Survey to add
-    let questionsTitles = [
-        req.body.question1,
-        req.body.question2
-    ]
-    
-    let optionDetails = [
-      req.body.options1,
-      req.body.options2,
-      req.body.options3,
-      req.body.options4,
-      req.body.options5,
-      req.body.options6,
-      req.body.options7,
-      req.body.options8
-  ]
-    let optionType = [  
-      req.body.optionType1,
-      req.body.optionType2
-  ]
-  
-    let optionsArray = []
-    let questionsArray = []
-    
-    for (let i = 0; i < optionDetails.length; i++) {
-      optionsArray.push({
-          "details" : optionDetails[i]
-      })
-  }
-  
-    for (let i = 0; i < questionsTitles.length; i++) {
-      questionsArray.push({
-          "title" : questionsTitles[i],
-          "optionType" : optionType[i],
-          "options" : optionsArray
-      })
-  }
-  
-      let newSurvey = new Survey
-    ({
-        "name": req.body.name,
-        "questions": questionsArray
-    })
+    let newSurvey = new Survey({
+        "Name": req.body.movieName,
+        "Director": req.body.movieDirector,
+        "Year": req.body.movieYear,
+        "Rating": req.body.movieRating
+    });
 
     //Insert the new Survey object into the database (survey collection)
     Survey.create(newSurvey, function(err: CallbackError)
@@ -108,52 +72,18 @@ export function ProcessEditPage(req: express.Request, res: express.Response, nex
 {
     let id = req.params.id;
 
-    let questionsTitles = [
-      req.body.question1,
-      req.body.question2
-  ]
-  
-  let optionDetails = [
-    req.body.options1,
-    req.body.options2,
-    req.body.options3,
-    req.body.options4,
-    req.body.options5,
-    req.body.options6,
-    req.body.options7,
-    req.body.options8
-]
-  let optionType = [  
-    req.body.optionType1,
-    req.body.optionType2
-]
-
-  let optionsArray = []
-  let questionsArray = []
-  
-  for (let i = 0; i < optionDetails.length; i++) {
-    optionsArray.push({
-        "details" : optionDetails[i]
-    })
-}
-
-  for (let i = 0; i < questionsTitles.length; i++) {
-    questionsArray.push({
-        "title" : questionsTitles[i],
-        "optionType" : optionType[i],
-        "options" : optionsArray
-    })
-}
-
-    let updateSurveys = new Survey
+    //instantiate a new Survey to Edit
+    let updatedSurvey = new Survey
     ({
-      "_id": id,
-      "name": req.body.name,
-      "questions": questionsArray
+        "_id": id,
+        "Name": req.body.movieName,
+        "Director": req.body.movieDirector,
+        "Year": req.body.movieYear,
+        "Rating": req.body.movieRating
     });
 
     //update the survey in the database
-    Survey.updateOne({_id: id}, updateSurveys, function(err: CallbackError)
+    Survey.updateOne({_id: id}, updatedSurvey, function(err: CallbackError)
     {
         if(err)
         {
@@ -162,7 +92,7 @@ export function ProcessEditPage(req: express.Request, res: express.Response, nex
         }
 
         //edit was successful -> go to the survey page
-        res.json({success: true, msg: 'Successfully Edited Survey', survey: updateSurveys});
+        res.json({success: true, msg: 'Successfully Edited Survey', survey: updatedSurvey});
     });
 }
 

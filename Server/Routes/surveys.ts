@@ -8,10 +8,12 @@ router.get('/survey', DisplaySurveyList);
 
 router.get('/add', DisplayAddPage);
 
-router.post('/edit/:id', DisplayEditPage);
+router.get('/edit/:id', DisplayEditPage);
 
 router.post('/add', ProcessAddPage);
 
 router.post('/edit/:id', ProcessEditPage);
 
 router.post('/delete/:id', ProcessDeletePage);
+
+export default router;
