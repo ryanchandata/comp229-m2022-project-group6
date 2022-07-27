@@ -73,7 +73,7 @@ export function ProcessRegisterPage(req: express.Request, res: express.Response,
             {
                 console.error(err.name); // other error
             }
-            return res.json({success: false, msg: 'ERROR: Registration Failed!'});
+            return res.json({success: false, msg: err+ 'ERROR: Registration Failed!'});
         }
 
         //everything is ok - user has been registered
