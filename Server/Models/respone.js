@@ -37,4 +37,4 @@ const surveySchema = new Schema({
 });
 const Model = mongoose_1.default.model("Survey", surveySchema);
 exports.default = Model;
-//# sourceMappingURL=survey.js.map
+//# sourceMappingURL=respone.js.map
