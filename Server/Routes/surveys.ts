@@ -15,5 +15,3 @@ router.post('/add', ProcessAddPage);
 router.post('/edit/:id', ProcessEditPage);
 
 router.post('/delete/:id', ProcessDeletePage);
-
-export default router;
