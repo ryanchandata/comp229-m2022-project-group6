@@ -93,7 +93,7 @@ passport.deserializeUser(User.deserializeUser());
 //setup JWT options
 let jwtOptions = 
 {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
   secretOrKey : DBConfig.Secret
 }
 
@@ -132,4 +132,3 @@ app.use(function(err:createError.HttpError, req:express.Request, res:express.Res
   res.render('error');
 });
 
-export default app;
