@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const surveySchema = new Schema({
+    SurveyID: String,
     user: String,
     name: String,
     dateCreated: {
@@ -22,6 +23,7 @@ const surveySchema = new Schema({
         default: 0
     },
     questions: [{
+            questionID: String,
             title: String,
             optionType: String,
             options: [{

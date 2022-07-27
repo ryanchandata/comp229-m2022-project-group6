@@ -31,11 +31,41 @@ function DisplayEditPage(req, res, next) {
 }
 exports.DisplayEditPage = DisplayEditPage;
 function ProcessAddPage(req, res, next) {
+    let questionsTitles = [
+        req.body.question1,
+        req.body.question2
+    ];
+    let optionDetails = [
+        req.body.options1,
+        req.body.options2,
+        req.body.options3,
+        req.body.options4,
+        req.body.options5,
+        req.body.options6,
+        req.body.options7,
+        req.body.options8
+    ];
+    let optionType = [
+        req.body.optionType1,
+        req.body.optionType2
+    ];
+    let optionsArray = [];
+    let questionsArray = [];
+    for (let i = 0; i < optionDetails.length; i++) {
+        optionsArray.push({
+            "details": optionDetails[i]
+        });
+    }
+    for (let i = 0; i < questionsTitles.length; i++) {
+        questionsArray.push({
+            "title": questionsTitles[i],
+            "optionType": optionType[i],
+            "options": optionsArray
+        });
+    }
     let newSurvey = new survey_1.default({
-        "Name": req.body.movieName,
-        "Director": req.body.movieDirector,
-        "Year": req.body.movieYear,
-        "Rating": req.body.movieRating
+        "name": req.body.name,
+        "questions": questionsArray
     });
     survey_1.default.create(newSurvey, function (err) {
         if (err) {
@@ -48,19 +78,49 @@ function ProcessAddPage(req, res, next) {
 exports.ProcessAddPage = ProcessAddPage;
 function ProcessEditPage(req, res, next) {
     let id = req.params.id;
-    let updatedSurvey = new survey_1.default({
+    let questionsTitles = [
+        req.body.question1,
+        req.body.question2
+    ];
+    let optionDetails = [
+        req.body.options1,
+        req.body.options2,
+        req.body.options3,
+        req.body.options4,
+        req.body.options5,
+        req.body.options6,
+        req.body.options7,
+        req.body.options8
+    ];
+    let optionType = [
+        req.body.optionType1,
+        req.body.optionType2
+    ];
+    let optionsArray = [];
+    let questionsArray = [];
+    for (let i = 0; i < optionDetails.length; i++) {
+        optionsArray.push({
+            "details": optionDetails[i]
+        });
+    }
+    for (let i = 0; i < questionsTitles.length; i++) {
+        questionsArray.push({
+            "title": questionsTitles[i],
+            "optionType": optionType[i],
+            "options": optionsArray
+        });
+    }
+    let updateSurveys = new survey_1.default({
         "_id": id,
-        "Name": req.body.movieName,
-        "Director": req.body.movieDirector,
-        "Year": req.body.movieYear,
-        "Rating": req.body.movieRating
+        "name": req.body.name,
+        "questions": questionsArray
     });
-    survey_1.default.updateOne({ _id: id }, updatedSurvey, function (err) {
+    survey_1.default.updateOne({ _id: id }, updateSurveys, function (err) {
         if (err) {
             console.error(err);
             res.end(err);
         }
-        res.json({ success: true, msg: 'Successfully Edited Survey', survey: updatedSurvey });
+        res.json({ success: true, msg: 'Successfully Edited Survey', survey: updateSurveys });
     });
 }
 exports.ProcessEditPage = ProcessEditPage;

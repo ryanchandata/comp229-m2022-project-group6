@@ -47,7 +47,7 @@ function ProcessRegisterPage(req, res, next) {
             else {
                 console.error(err.name);
             }
-            return res.json({ success: false, msg: 'ERROR: Registration Failed!' });
+            return res.json({ success: false, msg: err + 'ERROR: Registration Failed!' });
         }
         return res.json({ success: true, msg: 'User Registered Successfully!' });
     });

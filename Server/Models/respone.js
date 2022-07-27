@@ -5,36 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-const surveySchema = new Schema({
-    user: String,
-    name: String,
-    dateCreated: {
-        type: String,
-        default: new Date().toISOString()
-    },
-    dateActive: {
-        type: String,
-        default: new Date().toISOString()
-    },
-    dateExpire: String,
-    responses: {
-        type: Number,
-        default: 0
-    },
-    questions: [{
-            title: String,
-            optionType: String,
-            options: [{
-                    details: String,
-                    count: {
-                        type: Number,
-                        default: 0
-                    }
-                }]
+const responeSchema = new Schema({
+    SurveyID: String,
+    Answers: [{
+            QuestionID: String,
+            OptionID: String,
+            Value: String
         }]
 }, {
-    collection: "surveys"
+    collection: "respones"
 });
-const Model = mongoose_1.default.model("Survey", surveySchema);
+const Model = mongoose_1.default.model("Respone", responeSchema);
 exports.default = Model;
 //# sourceMappingURL=respone.js.map
